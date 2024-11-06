@@ -44,6 +44,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // Route resource untuk UserController
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit'); // Edit route
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update'); // Update route
+
+
 
 // Route untuk pengguna biasa dengan middleware auth
 Route::middleware(['auth'])->group(function () {

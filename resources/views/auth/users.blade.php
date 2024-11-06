@@ -1,6 +1,7 @@
 @extends('auth.layouts')
 
 @section('content')
+<h2>List of Users</h2>
 <table>
     <thead>
         <tr>
@@ -23,7 +24,8 @@
                 @endif
             </td>
             <td>
-                <button>Edit</button>
+                <!-- Tombol Edit -->
+                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
                 <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
                     @method('DELETE')
                     {{ csrf_field() }}
