@@ -20,7 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'level', // Pastikan 'level' ada di sini
+        'photo', // Menambahkan 'photo' ke dalam fillable
+        'level', 
     ];
 
     /**

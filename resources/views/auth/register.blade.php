@@ -9,7 +9,7 @@
                     <h4>Register</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('store') }}">
+                    <form method="POST" action="{{ route('store') }}" enctype="multipart/form-data"> 
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
@@ -35,6 +35,16 @@
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                        </div>
+                        <!-- elemen upload photo -->
+                        <div class="mb-3 row">
+                            <label for="photo" class="col-md-4 col-form-label text-md-end text-start">Photo</label>
+                            <div class="col-md-6">
+                                <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" value="{{ old('photo') }}">
+                                @if ($errors->has('photo'))
+                                    <span class="text-danger">{{ $errors->first('photo') }}</span>
+                                @endif
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Register</button>
                     </form>

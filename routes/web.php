@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\UserController; // Pastikan ini ada
+use App\Http\Controllers\UserController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +40,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update'); // Memperbarui data pengguna
     Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy'); // Menghapus pengguna
 });
+
+// Route resource untuk UserController
+Route::get('/users', [UserController::class, 'index'])->name('user.index');
 
 // Route untuk pengguna biasa dengan middleware auth
 Route::middleware(['auth'])->group(function () {
