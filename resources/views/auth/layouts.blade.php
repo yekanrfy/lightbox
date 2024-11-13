@@ -15,6 +15,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('gallery') ? 'active' : '' }}" href="{{ route('gallery.index') }}">Gallery</a>
+                    </li>
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>

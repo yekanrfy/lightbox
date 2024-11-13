@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController; 
+use App\Http\Controllers\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +50,14 @@ Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.de
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit'); // Edit route
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update'); // Update route
 
-
+// Route resource untuk GalleryController
+// Route::resource('gallery', GalleryController::class);
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/gallery/{id}/edit', [GalleryController::class, 'edit'])->name('gallery.edit');
+Route::put('/gallery/{id}', [GalleryController::class, 'update'])->name('gallery.update');
+Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
+Route::get('/gallery/create', [GalleryController::class, 'create'])->name('gallery.create');
+Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
 
 // Route untuk pengguna biasa dengan middleware auth
 Route::middleware(['auth'])->group(function () {
