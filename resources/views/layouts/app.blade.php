@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Login and Register</title>
+    <title>Gallery</title>
     <!-- Menggunakan CDN Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menambahkan file CSS lain jika diperlukan -->
@@ -18,8 +18,8 @@
                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-1.jpg" alt="image-1" />
             </a>
             <div class="position-absolute top-0 end-0 m-2">
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <a href="{{ route('gallery.edit', ['id' => 1]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ route('gallery.delete', ['id' => 1]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
             </div>
         </div>
         <div class="position-relative d-inline-block">
@@ -27,8 +27,8 @@
                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-2.jpg" alt="image-1"/>
             </a>
             <div class="position-absolute top-0 end-0 m-2">
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <a href="{{ route('gallery.edit', ['id' => 2]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ route('gallery.delete', ['id' => 2]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
             </div>
         </div>
     </div>
@@ -42,8 +42,8 @@
                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-3.jpg" alt=""/>
             </a>
             <div class="position-absolute top-0 end-0 m-2">
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <a href="{{ route('gallery.edit', ['id' => 3]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ route('gallery.delete', ['id' => 3]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
             </div>
         </div>
         <div class="position-relative d-inline-block">
@@ -51,8 +51,8 @@
                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-4.jpg" alt="" />
             </a>
             <div class="position-absolute top-0 end-0 m-2">
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <a href="{{ route('gallery.edit', ['id' => 4]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ route('gallery.delete', ['id' => 4]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
             </div>
         </div>
         <div class="position-relative d-inline-block">
@@ -60,8 +60,8 @@
                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-5.jpg" alt="" />
             </a>
             <div class="position-absolute top-0 end-0 m-2">
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <a href="{{ route('gallery.edit', ['id' => 5]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ route('gallery.delete', ['id' => 5]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
             </div>
         </div>
         <div class="position-relative d-inline-block">
@@ -69,8 +69,8 @@
                 <img class="example-image" src="http://lokeshdhakar.com/projects/lightbox2/images/thumb-6.jpg" alt="" />
             </a>
             <div class="position-absolute top-0 end-0 m-2">
-                <button class="btn btn-warning btn-sm">Edit</button>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <a href="{{ route('gallery.edit', ['id' => 6]) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ route('gallery.delete', ['id' => 6]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
             </div>
         </div>
     </div>

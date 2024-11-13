@@ -53,11 +53,9 @@ Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update
 // Route resource untuk GalleryController
 // Route::resource('gallery', GalleryController::class);
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
-Route::get('/gallery/{id}/edit', [GalleryController::class, 'edit'])->name('gallery.edit');
-Route::put('/gallery/{id}', [GalleryController::class, 'update'])->name('gallery.update');
-Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy');
-Route::get('/gallery/create', [GalleryController::class, 'create'])->name('gallery.create');
-Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store');
+Route::get('/gallery/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
+Route::get('/gallery/delete/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
+
 
 // Route untuk pengguna biasa dengan middleware auth
 Route::middleware(['auth'])->group(function () {

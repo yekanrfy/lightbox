@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Post;
+use App\Models\User;
 
 class GalleryController extends Controller
 {
@@ -91,36 +92,47 @@ class GalleryController extends Controller
      */
     public function edit($id)
 {
-    $gallery = Post::findOrFail($id);
-    return view('gallery.edit', compact('gallery'));
+    $product = Product::findOrFail($id);
+    return view('product.edit', compact('product'));
+}
+
+public function delete($id)
+{
+    $product = Product::findOrFail($id);
+    $product->delete();
+    return redirect()->route('product.index')->with('success', 'Product deleted successfully');
 }
 
 public function update(Request $request, $id)
 {
-    $this->validate($request, [
-        'title' => 'required|max:255',
-        'description' => 'required',
-        'picture' => 'image|nullable|max:1999'
+    // Validasi input
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    $post = Post::findOrFail($id);
-    
-    if ($request->hasFile('picture')) {
-        $filenameWithExt = $request->file('picture')->getClientOriginalName();
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        $extension = $request->file('picture')->getClientOriginalExtension();
-        $basename = uniqid() . time();
-        $filenameSimpan = "{$basename}.{$extension}";
-        
-        $path = $request->file('picture')->storeAs('posts_image', $filenameSimpan);
-        $post->picture = $filenameSimpan;
+    // Cari gambar berdasarkan ID
+    $image = Image::findOrFail($id);
+
+    // Update data gambar
+    $image->title = $request->input('title');
+
+    // Jika ada gambar baru yang di-upload
+    if ($request->hasFile('image')) {
+        // Hapus gambar lama jika ada
+        if ($image->image && file_exists(storage_path('app/public/' . $image->image))) {
+            unlink(storage_path('app/public/' . $image->image));
+        }
+
+        // Simpan gambar baru
+        $filePath = $request->file('image')->store('images', 'public');
+        $image->image = $filePath;
     }
 
-    $post->title = $request->input('title');
-    $post->description = $request->input('description');
-    $post->save();
+    // Simpan perubahan
+    $image->save();
 
-    return redirect('gallery')->with('success', 'Data berhasil diperbarui');
+    return redirect()->route('gallery.index')->with('success', 'Image updated successfully');
 }
 
 public function destroy($id)
