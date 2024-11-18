@@ -25,9 +25,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+
 // Route untuk LoginRegisterController
 Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/register', 'register')->name('register');
+    Route::post('/register', 'store')->name('store');
     Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
