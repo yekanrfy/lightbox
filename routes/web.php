@@ -6,6 +6,8 @@ use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController; 
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\SendEmailController;
+use App\Jobs\SendMailJob;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +58,10 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index
 Route::get('/gallery/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
 Route::get('/gallery/delete/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
 
+// route untuk SendEmailController
+Route::get('/send-email', [SendEmailController::class, 'index'])->name('kirim-email');
+Route::post('/send-email', [SendEmailController::class, 'store'])->name('post-email');
+Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
 
 // Route untuk pengguna biasa dengan middleware auth
 Route::middleware(['auth'])->group(function () {
