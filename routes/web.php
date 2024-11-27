@@ -8,6 +8,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\SendEmailController;
 use App\Jobs\SendMailJob;
+use App\Http\Controllers\Api\GalleryApiController;
+
+Route::get('/gallery', [GalleryApiController::class, 'showGalleryPage']);
+Route::get('/gallery', [GalleryApiController::class, 'showGalleryPage'])->name('gallery.index');
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,12 +51,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin', [AdminController::class, 'store'])->name('admin.store'); // Menyimpan pengguna baru
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit'); // Form untuk mengedit pengguna
     Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update'); // Memperbarui data pengguna
-    Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy'); // Menghapus pengguna
+    // Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy'); // Menghapus pengguna
 });
 
 // Route resource untuk UserController
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+// Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit'); // Edit route
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update'); // Update route
 
