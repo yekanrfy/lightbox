@@ -1,20 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Auth\LoginRegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController; 
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\SendEmailController;
+use App\Jobs\SendMailJob;
+use App\Http\Controllers\Api\GalleryApiController;
+
+Route::get('/gallery', [GalleryApiController::class, 'showGalleryPage'])->name('gallery.index');
 
 /*
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|---------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider and all of them will be
+| assigned to the "web" middleware group. Make something great!
 |
 */
 
@@ -26,6 +30,7 @@ Route::get('/', function () {
 // Route untuk LoginRegisterController
 Route::controller(LoginRegisterController::class)->group(function () {
     Route::get('/register', 'register')->name('register');
+    Route::post('/register', 'store')->name('store');
     Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
@@ -41,23 +46,25 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin', [AdminController::class, 'store'])->name('admin.store'); // Menyimpan pengguna baru
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit'); // Form untuk mengedit pengguna
     Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update'); // Memperbarui data pengguna
-    Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy'); // Menghapus pengguna
+    // Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy'); // Menghapus pengguna
 });
 
 // Route resource untuk UserController
 Route::get('/users', [UserController::class, 'index'])->name('user.index');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+// Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit'); // Edit route
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update'); // Update route
 
 // Route resource untuk GalleryController
 // Route::resource('gallery', GalleryController::class);
-Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index'); // Menampilkan daftar gallery
-Route::get('/gallery/create', [GalleryController::class, 'create'])->name('gallery.create'); // Menampilkan form tambah data
-Route::post('/gallery', [GalleryController::class, 'store'])->name('gallery.store'); // Menyimpan data baru
-Route::get('/gallery/{id}/edit', [GalleryController::class, 'edit'])->name('gallery.edit'); // Menampilkan form edit
-Route::put('/gallery/{id}', [GalleryController::class, 'update'])->name('gallery.update'); // Memperbarui data
-Route::delete('/gallery/{id}', [GalleryController::class, 'destroy'])->name('gallery.destroy'); // Menghapus data
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/gallery/edit/{id}', [GalleryController::class, 'edit'])->name('gallery.edit');
+Route::get('/gallery/delete/{id}', [GalleryController::class, 'delete'])->name('gallery.delete');
+
+// route untuk SendEmailController
+Route::get('/send-email', [SendEmailController::class, 'index'])->name('kirim-email');
+Route::post('/send-email', [SendEmailController::class, 'store'])->name('post-email');
+Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
 
 // Route untuk pengguna biasa dengan middleware auth
 Route::middleware(['auth'])->group(function () {

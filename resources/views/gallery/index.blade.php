@@ -1,42 +1,35 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $menu }}</title>
+    <style>
+        /* Gaya CSS untuk gambar */
+        .gallery-item img {
+            width: 150px;  /* Ukuran gambar */
+            height: 150px; /* Ukuran gambar */
+            object-fit: cover;  /* Menjaga aspek rasio dan memotong gambar yang melebihi ukuran */
+            border-radius: 50%;  /* Membuat gambar menjadi lingkaran */
+            border: 5px solid #ddd;  /* Memberikan border (frame) di sekitar gambar */
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ $menu }}</h1>
 
-@section('content')
-<div class="row justify-content-center mt-5">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">Dashboard</div>
-            <div class="card-body">
-                <div class="row">
-                    @if(count($galleries) > 0)
-                        @foreach ($galleries as $gallery)
-                            <div class="col-md-3 mb-3"> <!-- Ganti col-md-2 dengan col-md-3 untuk memberi lebih banyak ruang -->
-                                <div>
-                                    <a class="example-image-link" href="{{ asset('storage/posts_image/' . $gallery->picture) }}" data-lightbox="roadtrip" data-title="{{ $gallery->description }}">
-                                        <img class="example-image img-fluid mb-2" src="{{ asset('storage/posts_image/' . $gallery->picture) }}" alt="{{ $gallery->description }}" />
-                                    </a>
-                                </div>
-                                <div class="mt-2 text-center">
-                                    <!-- Tombol Edit -->
-                                    <a href="{{ route('gallery.edit', $gallery->id) }}" class="btn btn-primary btn-sm mb-2">Edit</a>
-                                    
-                                    <!-- Tombol Delete -->
-                                    <form action="{{ route('gallery.destroy', $gallery->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus?')">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <h3>Tidak ada data.</h3>
-                    @endif
+    @if(count($galleries) > 0)
+        <div class="gallery">
+            @foreach($galleries as $gallery)
+                <div class="gallery-item">
+                    <h3>{{ $gallery->title }}</h3>
+                    <p>{{ $gallery->description }}</p>
+                    <img src="{{ asset($gallery->picture) }}" alt="{{ $gallery->title }}" />
                 </div>
-                <div class="d-flex">
-                    {{ $galleries->links() }}
-                </div>
-            </div>
+            @endforeach
         </div>
-    </div>
-</div>
-@endsection
+    @else
+        <p>No gallery items found.</p>
+    @endif
+</body>
+</html>
